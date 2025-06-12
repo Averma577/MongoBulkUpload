@@ -27,4 +27,4 @@ MongoBulkUpload is a Spring Boot-based backend application that allows uploading
 
 After running the project 
 
-Please visit this URL from your browser-> http://localhost:8081/mongo
+Please visit this URL from your browser-> http://localhost:8081/batch/start
