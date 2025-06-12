@@ -1,6 +1,7 @@
 package com.aadimngmnt.config;
 
 import com.aadimngmnt.Collection.Invoice;
+import com.aadimngmnt.service.Processor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -31,11 +32,13 @@ public class BatchConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final MongoTemplate mongoTemplate;
+    private Processor processor;
 
-    public BatchConfig(JobRepository jobRepository, PlatformTransactionManager transactionManager, MongoTemplate mongoTemplate) {
+    public BatchConfig(JobRepository jobRepository, PlatformTransactionManager transactionManager, MongoTemplate mongoTemplate, Processor processor) {
         this.jobRepository = jobRepository;
         this.transactionManager = transactionManager;
         this.mongoTemplate = mongoTemplate;
+        this.processor = processor;
     }
 
     @Bean
@@ -74,13 +77,6 @@ public class BatchConfig {
         return reader;
     }
 
-    @Bean
-    public ItemProcessor<Invoice, Invoice> processor() {
-        return invoice -> {
-            invoice.setDate(LocalDate.now());  // Set current date
-            return invoice;
-        };
-    }
 
     // Mongo writer
     @Bean
